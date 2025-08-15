@@ -13,18 +13,20 @@ const BuyActionWindow = ({ uid, mode }) => {
 
   console.log(mode);
 
-  const handleBuyClick = () => {
-    axios
-      .post("https://zerodha-clone-backend-1j54.onrender.com/newOrder", {
-        name: uid,
-        qty: stockQuantity,
-        price: stockPrice,
-        mode: mode,
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.error(err));
+  const handleBuyClick = async () => {
+  try {
+    const res = await axios.post("https://zerodha-clone-backend-1j54.onrender.com/newOrder", {
+      name: uid,
+      qty: stockQuantity,
+      price: stockPrice,
+      mode: mode,
+    });
+    console.log(res.data);
     GeneralContext.closeBuyWindow();
-  };
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   const handleCancelClick = () => {
     GeneralContext.closeBuyWindow();
