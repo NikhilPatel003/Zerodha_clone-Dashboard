@@ -14,13 +14,15 @@ const BuyActionWindow = ({ uid, mode }) => {
   console.log(mode);
 
   const handleBuyClick = () => {
-    axios.post("https://zerodha-clone-backend-1j54.onrender.com/newOrder", {
-      name: uid,
-      qty: stockQuantity,
-      price: stockPrice,
-      mode: mode,
-    });
-
+    axios
+      .post("https://zerodha-clone-backend-1j54.onrender.com/newOrder", {
+        name: uid,
+        qty: stockQuantity,
+        price: stockPrice,
+        mode: mode,
+      })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
     GeneralContext.closeBuyWindow();
   };
 
@@ -60,10 +62,7 @@ const BuyActionWindow = ({ uid, mode }) => {
       <div className="buttons">
         <span>Margin required ₹140.65</span>
         <div>
-          <Link
-            className={`btn btn-blue`}
-            onClick={handleBuyClick}
-          >
+          <Link className={`btn btn-blue`} onClick={handleBuyClick}>
             {mode === "BUY" ? "Buy" : "Sell"}
           </Link>
           <Link className="btn btn-grey" onClick={handleCancelClick}>
